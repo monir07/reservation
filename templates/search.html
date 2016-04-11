@@ -17,6 +17,22 @@
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
+    <div class="row">
+      {% if trains %}
+        <ul>
+          {% for train in trains %}
+            
+            <li>
+              {{ train.name }} 
+              <a href="">2A</a>
+              <a href="">3A</a>
+              <a href="">Sleeper</a>
+            </li>
+
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
   </div>
 
 {% endblock %}
