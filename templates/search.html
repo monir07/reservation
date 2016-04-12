@@ -6,13 +6,13 @@
     <div class="row">
       <form action="{% url 'booking:search' %}" class="form-inline">
         <fieldset class="form-group">
-          <input type="text" name="source" class="form-control">
+          <input type="text" name="source" class="form-control" required>
         </fieldset>
         <fieldset class="form-group">
-          <input type="text" name="destination" class="form-control">
+          <input type="text" name="destination" class="form-control" required>
         </fieldset>
         <fieldset class="form-group">
-          <input type="date" name="date" class="form-control">
+          <input type="date" name="date" class="form-control" required>
         </fieldset>
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
@@ -23,10 +23,16 @@
           {% for train in trains %}
             
             <li>
-              {{ train.name }} 
-              <a href="">2A</a>
-              <a href="">3A</a>
-              <a href="">Sleeper</a>
+              {{ train.name }}
+              <form action="{% url 'booking:book_ticket' %}" class="form-inline">
+                <select name="class">
+                  <option value="second_ac">2A</option>
+                  <option value="third_ac">3A</option>
+                  <option value="sleeper">Sleeper</option>
+                </select>
+                <input type="text" id="id_train" name="train" value="{{ train.pk }}" hidden>
+                <button type="submit" class="btn btn-primary">Book</button>
+              </form>
             </li>
 
           {% endfor %}

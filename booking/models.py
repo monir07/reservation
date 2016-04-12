@@ -9,9 +9,24 @@ class Train(models.Model):
     departure = models.TimeField(blank=True, null=True)
     arrival = models.TimeField(blank=True, null=True)
     route = models.ForeignKey('Route')
+    third_ac = models.PositiveIntegerField(default=10)
+    second_ac = models.PositiveIntegerField(default=10)
+    sleeper = models.PositiveIntegerField(default=10)
 
     def __str__(self):
         return self.name
+
+    def decrease_third_ac(self):
+        self.third_ac -= 1
+        self.save()
+
+    def decrease_second_ac(self):
+        self.second_ac -= 1
+        self.save()
+
+    def decrease_sleeper(self):
+        self.second_ac -= 1
+        self.save()
 
 
 class Station(models.Model):
@@ -51,6 +66,10 @@ class Ticket(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    train = models.ForeignKey('Train')
 
     def __str__(self):
         return self.first_name + self.last_name
+
+    def get_full_name(self):
+        return self.first_name + ' ' + self.last_name
